@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Cellphone</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- FONT GOOGLE copy link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&family=Redressed&family=Roboto+Slab&display=swap"
+    rel="stylesheet" />
+
+  <!-- vào trang animate style lấy link  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <!-- FONT AWESOME copy link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="./../../assets/css/style.css">
+</head>
+
+<body>
+  <header>
+    <nav class="phoneNav container d-flex justify-content-between">
+      <a class="navbar-brand" href="#">Cellphone</a>
+      <button id="gioHang" class="navbar-toggler cart" type="button" data-toggle="collapse" data-target="#navbarToggler"
+        aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-shopping-cart"></i>
+        Giỏ hàng
+      </button>
+    </nav>
+  </header>
+  <div class="collapse navbar-collapse container" id="navbarToggler">
+    <div class="navbar__menu">
+      <a href="" class="btn__close"><i class="fas fa-times"></i></a>
+      <table class="table table-bordered">
+        <tbody id="tblSP">
+          <!-- <tr>
+            <td>stt</td>
+            <td>ha</td>
+            <td>ten</td>
+            <td>loại</td>
+            <td>
+              <div class="product__intro">
+              <p>Số lượng: <input id="soLuong" type="number" min="0" max="1000" style="width:40px" placeholder="0"></p>
+            </div>
+          </td>
+            <td>gia</td>
+          </tr> -->
+        </tbody>
+      </table>
+    </div>
+    <p class="text-left">Totals:
+      <span id="tongTien"></span>
+    </p>
+    <div class="modal-footer">
+      <div>
+        <button class="btn btn-primary">Purchase
+          <i class="fas fa-credit-card"></i></button>
+        <button class="btn btn-danger">Clear cart
+          <i class="fas fa-trash"></i></button>
+      </div>
+
+    </div>
+  </div>
+
+  <section class="products pt-3" id="products">
+    <div class="products__list container">
+      <div class="loader" id="loader" style="display: none"></div>
+      <div class="form-group">
+        <label style="color: white">Tìm kiếm: </label>
+        <span style="color: white" id="xuat"></span>
+        <select class="form-control " style="width: 30%" id="loaiDT" onchange="chonThayDoi()">
+          <option>Chọn loại điện thoại</option>
+          <option>IPHONE</option>
+          <option>SAMSUNG</option>
+        </select>
+      </div>
+      <div class="row" id="listProduct">
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"
+    integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="./../services/index.js"></script>
+  <script src="./../controller/main.js"></script>
+</body>
+
+</html>

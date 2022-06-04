@@ -1,0 +1,17 @@
+.btn__close {
+    @include styleText($fs-9, $fw-3, $color-white-1);
+    background-color: $color-green;
+    padding: 5px 10px;
+    margin-left: 1100px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+.btnAdd {
+    background-color: $color-white-1;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 15px;
+    &:hover {
+        @include styleButtonHover($color-blue-2, $color-white-1, $color-white-1);
+    }
+}

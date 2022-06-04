@@ -1,0 +1,71 @@
+.product__item {
+    @include styleText($fs-2, $fw-2, $color-black-0);
+    background-color:rgb(167, 167, 167);
+    border-radius: 20px;
+    padding: 20px;
+    transition: all 0.5s;
+    margin-top: 50px;
+    height: auto;
+    position: relative;
+    .logo {
+        color: $color-green;
+        i {
+            @include styleText($fs-9, $fw-3, $color-white-1);
+        }
+        p {
+            font-style: italic;
+        }
+    }
+    img {
+        width: 100%;
+        border-radius: 10px;
+        transition: all 0.5s;
+        &:hover {
+            transform: scale(1.1, 1.2);
+        }
+    }
+    h5 {
+        @include styleText($fs-9, $fw-3, $color-white-1)
+    }
+    &:hover {
+        transform: scale(1.2);
+        margin-bottom: 130px;
+    }
+    &:hover .product__detail {
+        opacity: 1;
+        transform: translateY(-20px);
+    }
+    .product__detail {
+        padding: 0 20px;
+        transform: translateY(-100px);
+        transition: all 0.5s;
+        position: absolute;
+        left: 0;
+        bottom: -110px;
+        width: 100%;
+        opacity: 0;
+        border-radius: 20px;
+        background-color:rgb(167, 167, 167);
+          }
+        .product__intro {
+            span {
+                @include styleText($fs-7, $fw-2, $color-dark-2)
+            }
+            p {
+                input {
+                    &::placeholder {
+                        color: $color-white-1;
+                        opacity: 1;
+                      }
+                    border-radius: 20px;
+                    border: 0.5px solid black;
+                    text-align: center;
+                    background-color: rgb(167, 167, 167);
+                }
+            }
+        }
+        .cardPhone__rating {
+            color: yellow;
+        }
+        
+    }
