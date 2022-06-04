@@ -4,11 +4,9 @@ header {
     .navbar-brand {
         @include styleText($fs-4, $fw-3, $color-white-1);
     }
-    .cart {
-        @include styleText($fs-9, $fw-3, $color-white-1);
-        transition: all 0.5s;
-        &:hover {
-            @include styleText($fs-9, $fw-3, rgb(167, 167, 167));
-        }
-    }
+}
+
+.modal-content {
+    width: 150%;
+    margin: 0 auto;
 }

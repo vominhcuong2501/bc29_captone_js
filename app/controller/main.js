@@ -1,15 +1,14 @@
 var service = new Services();
 var cart = [];
 
-
 function getEle(id) {
   return document.getElementById(id);
 }
 
 /**
- * Câu 3: Hiển thị danh sách sản phẩm cho khách hàng. 
+ * Câu 3: Hiển thị danh sách sản phẩm cho khách hàng.
  */
- function getListProducts() {
+function getListProducts() {
   service
     .getListProductApi()
     .then(function (result) {
@@ -23,7 +22,7 @@ getListProducts();
 
 function renderListProduct(data) {
   var content = "";
-  data.forEach(function(product) {
+  data.forEach(function (product) {
     content += `
     <div class="col-6 col-md-4 col-lg-3 ">
           <div class="product__item" id="iphone">
@@ -37,9 +36,9 @@ function renderListProduct(data) {
                 <p>Prize: <span>$${product.gia}</span> </p>
                 <div>
                   <p>Số lượng:
-                    <button id="giam" style="border:none; background-color: rgb(167, 167, 167);"><i class="fas fa-angle-left"></i></button>
-                    <input id="soLuong" style="width:20px" placeholder="0" >
-                    <button id="tang" style="border:none; background-color: rgb(167, 167, 167);"><i class="fas fa-angle-right"></i></button>
+                    <button id="giam"><i class="fas fa-angle-left"></i></button>
+                    <input id="soLuong" style="width:20px" value = "1" >
+                    <button id="tang"><i class="fas fa-angle-right"></i></button>
                   </p>
                 </div>
               </div>
@@ -52,12 +51,12 @@ function renderListProduct(data) {
                   <i class="fa fa-star"></i>
                 </div>
                 <div>
-                  <button id="btnAdd" class="btnAdd">Add</button>
+                  <button id="btnAdd" class="btnAdd" onclick= "addCart(${product.id})">Add</button>
                 </div>
               </div>
             </div>
           </div>
-        </div>`
+        </div>`;
   });
   getEle("listProduct").innerHTML = content;
 }
@@ -65,18 +64,18 @@ function renderListProduct(data) {
 /**
  * Câu 4: Tạo một ô select cho phép người dùng filter theo loại sản phẩm, ô select có 2 option là samsung và iphone, viết hàm gắn vào sự kiện onChange của select
  */
- function getListLoai(value) {
+function getListLoai(value) {
   service
     .getListProductApi()
     .then(function (result) {
-      var arrayLoai = result.data.map(function(product){
-        if(product.loai === value) {
+      var arrayLoai = result.data.map(function (product) {
+        if (product.loai === value) {
           return product;
         }
-      })
-      var arrayKhac = arrayLoai.filter(function(productKhac){
+      });
+      var arrayKhac = arrayLoai.filter(function (productKhac) {
         return productKhac !== undefined;
-      })
+      });
       renderListProduct(arrayKhac);
     })
     .catch(function (error) {
@@ -88,48 +87,58 @@ function chonThayDoi() {
   var theSpan = getEle("xuat");
   var dropdown = getEle("loaiDT");
   theSpan.innerHTML = dropdown.value;
-  getListLoai(dropdown.value)
+  getListLoai(dropdown.value);
 }
 
 /**
  * Câu 5: Cho phép người dùng chọn sản phẩm bỏ vào giỏ hàng
 Gợi ý: - tạo một mảng giỏ hàng - cart (biến global), mảng cart sẽ chứa các đối tượng cartItem
  */
-getEle("gioHang").onclick = function() {
-  getEle("products").style.display = "none";
-}
+getEle("gioHang").onclick = function () {
+  var footer = `
+  <p class="text-right col-12">Totals:
+    <span id="tongTien"></span>
+  </p>
+    <div>
+      <button class="btn btn-primary" id="thanhToan">Purchase
+        <i class="fas fa-credit-card"></i></button>
+      <button class="btn btn-danger" id="clearCart">Clear cart
+        <i class="fas fa-trash"></i></button>
+    </div>`;
+  getEle("footer").innerHTML = footer;
+};
 
 function addCart(id) {
   service
-  .getCartApi(id)
-  .then(function (result) {
-    cart.push(result.data);
-    renderCart(cart);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+    .getCartApi(id)
+    .then(function (result) {
+      cart.push(result.data);
+      renderCart(cart);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 
 function renderCart(data) {
-  var soLuong = getEle("soLuong").value;
-  console.log(soLuong);
-   var contentHTML = "";
-   data.forEach(function(product, index){
+  var contentHTML = "";
+  data.forEach(function (product) {
     contentHTML += `
-     <tr>
-          <td>${index + 1}</td>
-          <td>
-            <img class="image" src="./../../assets/images/${product.hinhAnh}" style= "width: 20%" /></td>
-          <td>${product.ten}</td>
-          <td>${product.loai}</td>
-          <td>
-            <div class="product__intro">
-            <p>Số lượng: <input id="soLuong" type="number" min="0" max="1000" style="width:70px" placeholder="0"></p>
-          </div>
-          </td>
-          <td>$${product.gia}</td>
-     </tr>`
-   });
-   getEle("tblSP").innerHTML = contentHTML;
+    <div class="navbar__menu row">
+      <div class = "col-3">
+        <img class="image" src="./../../assets/images/${product.hinhAnh}" style= "width: 50%; margin-bottom: 10px" /></td>
+      </div>
+      <div id="ten" class = "col-3">${product.ten}</div>
+      <div class = "col-3">
+          <button id="giam"><i class="fas fa-angle-left"></i></button>
+          <input id="soLuong" style="width:20px; border: none" value= "1">
+          <button id="tang"><i class="fas fa-angle-right"></i></button>
+      </div>
+      <div id="gia" class = "col-2">$${product.gia}</div>
+      <div id="delete" class = "col-1">
+          <button class = "btn"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>`;
+  });
+  getEle("listProductCart").innerHTML = contentHTML;
 }

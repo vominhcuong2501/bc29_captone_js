@@ -4,12 +4,11 @@
     color:$color ;
 }
 
-@mixin styleButton($bg,$pd-y,$pd-x,$bd, $radius,$ls) {
+@mixin styleButton($bg,$pd-y,$pd-x,$bd, $radius) {
     background: $bg;
     padding: $pd-y $pd-x;
     border: $bd;
     border-radius: $radius;
-    letter-spacing: $ls;
 }
 
 @mixin styleButtonHover($bg,$bd-color,$color) {

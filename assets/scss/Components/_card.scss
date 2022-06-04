@@ -53,12 +53,11 @@
             }
             p {
                 input {
+                    border: none;
                     &::placeholder {
                         color: $color-white-1;
                         opacity: 1;
                       }
-                    border-radius: 20px;
-                    border: 0.5px solid black;
                     text-align: center;
                     background-color: rgb(167, 167, 167);
                 }
@@ -68,4 +67,37 @@
             color: yellow;
         }
         
+    }
+
+    .navbar__menu {
+        @include styleText($fs-9, $fw-3, $color-dark-2);
+        text-align: center;
+        align-items: center;
+        border-bottom: 2px solid $color-dark-2;
+        margin-top: 20px;
+        #giam , #tang { 
+            height: 30px;
+            width: 30px;
+            line-height: 30px;
+            border: 1px solid  black; 
+            background-color: transparent;
+            border-radius: 50%;
+            transition: all 0.5s;
+            &:hover {
+                background-color: rgb(167, 167, 167);
+                border: 1px solid  $color-dark-2; 
+        }
+        }
+        p {
+            margin: 0;
+            input {
+                border: none;
+                &::placeholder {
+                    color: $color-dark-2;
+                    opacity: 1;
+                  }
+                text-align: center;
+                background-color: transparent;
+            }
+        }
     }

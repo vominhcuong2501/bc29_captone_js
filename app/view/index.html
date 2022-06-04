@@ -33,46 +33,13 @@
   <header>
     <nav class="phoneNav container d-flex justify-content-between">
       <a class="navbar-brand" href="#">Cellphone</a>
-      <button id="gioHang" class="navbar-toggler cart" type="button" data-toggle="collapse" data-target="#navbarToggler"
-        aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+      <button id="gioHang" class="btnCart" 
+        type="button"
+        data-toggle="modal" data-target="#myModal">
         <i class="fas fa-shopping-cart"></i>
-        Giỏ hàng
       </button>
     </nav>
   </header>
-  <div class="collapse navbar-collapse container" id="navbarToggler">
-    <div class="navbar__menu">
-      <a href="" class="btn__close"><i class="fas fa-times"></i></a>
-      <table class="table table-bordered">
-        <tbody id="tblSP">
-          <!-- <tr>
-            <td>stt</td>
-            <td>ha</td>
-            <td>ten</td>
-            <td>loại</td>
-            <td>
-              <div class="product__intro">
-              <p>Số lượng: <input id="soLuong" type="number" min="0" max="1000" style="width:40px" placeholder="0"></p>
-            </div>
-          </td>
-            <td>gia</td>
-          </tr> -->
-        </tbody>
-      </table>
-    </div>
-    <p class="text-left">Totals:
-      <span id="tongTien"></span>
-    </p>
-    <div class="modal-footer">
-      <div>
-        <button class="btn btn-primary">Purchase
-          <i class="fas fa-credit-card"></i></button>
-        <button class="btn btn-danger">Clear cart
-          <i class="fas fa-trash"></i></button>
-      </div>
-
-    </div>
-  </div>
 
   <section class="products pt-3" id="products">
     <div class="products__list container">
@@ -86,11 +53,32 @@
           <option>SAMSUNG</option>
         </select>
       </div>
-      <div class="row" id="listProduct">
-        
-      </div>
+      <div class="row" id="listProduct"></div>
     </div>
   </section>
+
+
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Giỏ hàng</h4>
+            <button type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body" id="listProductCart">
+
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer my-5 row" id="footer">
+            
+          </div>
+        </div>
+      </div>
+    </div>
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
