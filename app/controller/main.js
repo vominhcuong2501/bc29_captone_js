@@ -36,9 +36,9 @@ function renderListProduct(data) {
                 <p>Prize: <span>$${product.gia}</span> </p>
                 <div>
                   <p>Số lượng:
-                    <button id="giam"><i class="fas fa-angle-left"></i></button>
-                    <input id="soLuong" style="width:20px" value = "1" >
-                    <button id="tang"><i class="fas fa-angle-right"></i></button>
+                    <button id="giam" onclick = "giamSL(${product.id})"><i class="fas fa-angle-left"></i></button>
+                    <input id="soLuong" style="width:20px" value = "${product.soLuong}" >
+                    <button id="tang" onclick = "tangSL(${product.id})"><i class="fas fa-angle-right"></i></button>
                   </p>
                 </div>
               </div>
@@ -94,6 +94,7 @@ function chonThayDoi() {
  * Câu 5: Cho phép người dùng chọn sản phẩm bỏ vào giỏ hàng
 Gợi ý: - tạo một mảng giỏ hàng - cart (biến global), mảng cart sẽ chứa các đối tượng cartItem
  */
+
 getEle("gioHang").onclick = function () {
   var footer = `
   <p class="text-right col-12">Totals:
@@ -108,18 +109,25 @@ getEle("gioHang").onclick = function () {
   getEle("footer").innerHTML = footer;
 };
 
+
 function addCart(id) {
   service
     .getCartApi(id)
     .then(function (result) {
-      cart.push(result.data);
+      var cartItem = {
+        id: result.data.id,
+        ten: result.data.ten , 
+        gia: result.data.gia,
+        hinhAnh: result.data.hinhAnh,
+        soLuong: result.data.soLuong,}
+      cart.push(cartItem);
+      
       renderCart(cart);
     })
     .catch(function (error) {
       console.log(error);
     });
 }
-
 function renderCart(data) {
   var contentHTML = "";
   data.forEach(function (product) {
@@ -130,9 +138,9 @@ function renderCart(data) {
       </div>
       <div id="ten" class = "col-3">${product.ten}</div>
       <div class = "col-3">
-          <button id="giam"><i class="fas fa-angle-left"></i></button>
-          <input id="soLuong" style="width:20px; border: none" value= "1">
-          <button id="tang"><i class="fas fa-angle-right"></i></button>
+        <button id="giam" onclick = "giamSL(${product.id})"><i class="fas fa-angle-left"></i></button>
+          <input id="soLuong" style="width:20px; border: none" value= "${product.soLuong}">
+          <button id="tang" onclick = "tangSL(${product.id})"><i class="fas fa-angle-right"></i></button>
       </div>
       <div id="gia" class = "col-2">$${product.gia}</div>
       <div id="delete" class = "col-1">
@@ -142,3 +150,24 @@ function renderCart(data) {
   });
   getEle("listProductCart").innerHTML = contentHTML;
 }
+
+
+// /**
+//  * lưu dữ kiện trên trình duyệt
+//  */ 
+//  function setLocalStorage() {
+//   // convert from JSON to String (chuyển công thức sang chuỗi)
+//   var string = JSON.stringify(cart);
+//   // lưu xuống localstorage
+//   localStorage.setItem("GioHang", string);
+// }
+
+// function getLocalStorage() {
+//   if(localStorage.getItem("GioHang")) {
+//       var dataString = localStorage.getItem("GioHang");
+//       // convert from string to JSON (chuyển chuỗi sang công thức)
+//       var dataJSON = JSON.parse(dataString);
+//       cart= dataJSON;
+//       renderCart(cart);
+//   }   
+// }
