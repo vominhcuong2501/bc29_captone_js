@@ -1,4 +1,5 @@
 var service = new Services();
+
 var cart = [];
 
 function getEle(id) {
@@ -109,25 +110,51 @@ getEle("gioHang").onclick = function () {
   getEle("footer").innerHTML = footer;
 };
 
-
 function addCart(id) {
+  var gioHang = [];
   service
     .getCartApi(id)
     .then(function (result) {
       var cartItem = {
         id: result.data.id,
-        ten: result.data.ten , 
+        ten: result.data.ten,
         gia: result.data.gia,
+        looai: result.data.loai,
         hinhAnh: result.data.hinhAnh,
-        soLuong: result.data.soLuong,}
+        soLuong: result.data.soLuong,
+      };
+      gioHang.push(cartItem);
       cart.push(cartItem);
-      
-      renderCart(cart);
+      var product = new Product(cartItem.id, cartItem.ten, cartItem.gia, cartItem.hinhAnh, cartItem.loai, cartItem.soLuong);
+      for (var i = 0; i < cart.length; i++) {
+        if (result.data.id == cart[i].id) {
+          console.log(cart[i].id);
+          console.log(result.data.id);
+           service
+           .changeQuantilyProductApi(product)
+           .then(function(result){
+            cartItem = {
+              id: result.data.id,
+              ten: result.data.ten,
+              gia: result.data.gia,
+              looai: result.data.loai,
+              hinhAnh: result.data.hinhAnh,
+              soLuong: Number(result.data.soLuong) + 1,
+            };
+            cart.push(cartItem);
+           })
+           .catch(function (error) {
+            console.log(error);
+          });
+        }
+          renderCart(cart);
+      }
     })
     .catch(function (error) {
       console.log(error);
     });
 }
+
 function renderCart(data) {
   var contentHTML = "";
   data.forEach(function (product) {
@@ -151,10 +178,13 @@ function renderCart(data) {
   getEle("listProductCart").innerHTML = contentHTML;
 }
 
+/**
+ * Câu 7: Khi thêm sản phẩm vào giỏ hàng, nếu sản phẩm chưa có trong giỏ hàng thì push vào cart với quantity là 1, nếu đã có rồi thì ko push nữa mà chỉ tăng quantity lên 1 đơn vị
+ */
 
 // /**
 //  * lưu dữ kiện trên trình duyệt
-//  */ 
+//  */
 //  function setLocalStorage() {
 //   // convert from JSON to String (chuyển công thức sang chuỗi)
 //   var string = JSON.stringify(cart);
@@ -169,5 +199,5 @@ function renderCart(data) {
 //       var dataJSON = JSON.parse(dataString);
 //       cart= dataJSON;
 //       renderCart(cart);
-//   }   
+//   }
 // }
