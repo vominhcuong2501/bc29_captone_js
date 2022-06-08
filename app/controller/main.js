@@ -1,19 +1,34 @@
-var service = new Services();
-
+var api = new Services();
+var dssp = new ProductList();
+var arrProduct = dssp.arrList;
 var cart = [];
 
 function getEle(id) {
   return document.getElementById(id);
 }
 
+function getArrProduct (data) {
+  data.forEach(function(product) {
+      var id = product.id;
+      var loai = product.loai;
+      var hinhAnh = product.hinhAnh;
+      var ten = product.ten;
+      var gia = product.gia;
+      var soLuong = product.soLuong;
+      var product = new Product(id, loai, hinhAnh, ten, gia, soLuong);
+      dssp.addProduct(product);
+  })
+}
+
 /**
  * Câu 3: Hiển thị danh sách sản phẩm cho khách hàng.
  */
 function getListProducts() {
-  service
+  api
     .getListProductApi()
     .then(function (result) {
       renderListProduct(result.data);
+      getArrProduct(result.data);
     })
     .catch(function (error) {
       console.log(error);
@@ -65,118 +80,91 @@ function renderListProduct(data) {
 /**
  * Câu 4: Tạo một ô select cho phép người dùng filter theo loại sản phẩm, ô select có 2 option là samsung và iphone, viết hàm gắn vào sự kiện onChange của select
  */
-function getListLoai(value) {
-  service
-    .getListProductApi()
-    .then(function (result) {
-      var arrayLoai = result.data.map(function (product) {
-        if (product.loai === value) {
-          return product;
-        }
-      });
-      var arrayKhac = arrayLoai.filter(function (productKhac) {
-        return productKhac !== undefined;
-      });
-      renderListProduct(arrayKhac);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
 
-function chonThayDoi() {
-  var theSpan = getEle("xuat");
-  var dropdown = getEle("loaiDT");
-  theSpan.innerHTML = dropdown.value;
-  getListLoai(dropdown.value);
+function getListLoai()  {
+  var loaiSelect = getEle("loaiDT").value;
+  var fillerProduct= arrProduct.filter(function(product) {
+      if (product.loai !== loaiSelect) {
+          return false;
+      }
+      return true;
+  })
+  if (fillerProduct.length == 0) {
+    renderListProduct(arrProduct);
+  } else {
+    renderListProduct(fillerProduct);
+  }
 }
 
 /**
  * Câu 5: Cho phép người dùng chọn sản phẩm bỏ vào giỏ hàng
 Gợi ý: - tạo một mảng giỏ hàng - cart (biến global), mảng cart sẽ chứa các đối tượng cartItem
  */
-
-getEle("gioHang").onclick = function () {
-  var footer = `
-  <p class="text-right col-12">Totals:
-    <span id="tongTien"></span>
-  </p>
-    <div>
-      <button class="btn btn-primary" id="thanhToan">Purchase
-        <i class="fas fa-credit-card"></i></button>
-      <button class="btn btn-danger" id="clearCart">Clear cart
-        <i class="fas fa-trash"></i></button>
-    </div>`;
-  getEle("footer").innerHTML = footer;
-};
-
-function addCart(id) {
-  var gioHang = [];
-  service
-    .getCartApi(id)
-    .then(function (result) {
-      var cartItem = {
-        id: result.data.id,
-        ten: result.data.ten,
-        gia: result.data.gia,
-        looai: result.data.loai,
-        hinhAnh: result.data.hinhAnh,
-        soLuong: result.data.soLuong,
-      };
-      gioHang.push(cartItem);
-      cart.push(cartItem);
-      var product = new Product(cartItem.id, cartItem.ten, cartItem.gia, cartItem.hinhAnh, cartItem.loai, cartItem.soLuong);
-      for (var i = 0; i < cart.length; i++) {
-        if (result.data.id == cart[i].id) {
-          console.log(cart[i].id);
-          console.log(result.data.id);
-           service
-           .changeQuantilyProductApi(product)
-           .then(function(result){
-            cartItem = {
-              id: result.data.id,
-              ten: result.data.ten,
-              gia: result.data.gia,
-              looai: result.data.loai,
-              hinhAnh: result.data.hinhAnh,
-              soLuong: Number(result.data.soLuong) + 1,
-            };
-            cart.push(cartItem);
-           })
-           .catch(function (error) {
-            console.log(error);
-          });
-        }
-          renderCart(cart);
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+function addCart(product) {
+  for( var i = 0; i < cart.length; i++) {
+    if(item !== cart[i]) {
+      cart[i].soLuong += 1;
+      break;
+    }
+  }
+    var id = arrProduct[product - 1 ].id ; 
+    var loai = arrProduct[product - 1].loai; 
+    var hinhAnh = arrProduct[product - 1].hinhAnh; 
+    var ten = arrProduct[product - 1].ten; 
+    var gia = arrProduct[product - 1].gia; 
+    var soLuong = Number(arrProduct[product - 1].soLuong); 
+    var item = new Product(id, loai, hinhAnh, ten, gia, soLuong);
+    cart.push(item);
+    renderCart(cart);
+  
+  // api
+  //   .getCartApi(id)
+  //   .then(function (result) {
+  //     var cartItem = {
+  //       id: result.data.id,
+  //       ten: result.data.ten,
+  //       gia: result.data.gia,
+  //       loai: result.data.loai,
+  //       hinhAnh: result.data.hinhAnh,
+  //       soLuong: result.data.soLuong,
+  //     };
+  //     cart.push(cartItem);
+  //     cart.push.getArrProduct(cartItem);
+  //     renderCart(cart);
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
 }
 
-function renderCart(data) {
+function renderCart(arrProduct) {
   var contentHTML = "";
-  data.forEach(function (product) {
+  arrProduct.forEach(function(product) {
     contentHTML += `
-    <div class="navbar__menu row">
-      <div class = "col-3">
-        <img class="image" src="./../../assets/images/${product.hinhAnh}" style= "width: 50%; margin-bottom: 10px" /></td>
-      </div>
-      <div id="ten" class = "col-3">${product.ten}</div>
-      <div class = "col-3">
-        <button id="giam" onclick = "giamSL(${product.id})"><i class="fas fa-angle-left"></i></button>
+    <tr>
+      <td >${product.id}</td>
+      <td style = "width: 35%">
+          <img class="image" src="./../../assets/images/${product.hinhAnh}" style= "width: 50%; margin-bottom: 10px" />
+      </td>
+      <td>${product.ten}</td>
+      <td>
+          <button id="giam" onclick = "giamSL(${product.id})"><i class="fas fa-angle-left"></i></button>
           <input id="soLuong" style="width:20px; border: none" value= "${product.soLuong}">
           <button id="tang" onclick = "tangSL(${product.id})"><i class="fas fa-angle-right"></i></button>
-      </div>
-      <div id="gia" class = "col-2">$${product.gia}</div>
-      <div id="delete" class = "col-1">
+      </td>
+      <td >$${product.gia}</td>
+      <td >
           <button class = "btn"><i class="fas fa-trash"></i></button>
-      </div>
-    </div>`;
+      </td>
+    </tr>`;
   });
-  getEle("listProductCart").innerHTML = contentHTML;
+  getEle("danhSachSP").innerHTML = contentHTML;
 }
+
+
+
+
+
 
 /**
  * Câu 7: Khi thêm sản phẩm vào giỏ hàng, nếu sản phẩm chưa có trong giỏ hàng thì push vào cart với quantity là 1, nếu đã có rồi thì ko push nữa mà chỉ tăng quantity lên 1 đơn vị

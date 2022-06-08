@@ -35,7 +35,7 @@
       <a class="navbar-brand" href="#">Cellphone</a>
       <button id="gioHang" class="btnCart" 
         type="button"
-        data-toggle="modal" data-target="#myModal">
+        data-toggle="modal" data-target="#cartModal">
         <i class="fas fa-shopping-cart"></i>
       </button>
     </nav>
@@ -46,8 +46,7 @@
       <div class="loader" id="loader" style="display: none"></div>
       <div class="form-group">
         <label style="color: white">Tìm kiếm: </label>
-        <span style="color: white" id="xuat"></span>
-        <select class="form-control " style="width: 30%" id="loaiDT" onchange="chonThayDoi()">
+        <select class="form-control " style="width: 30%" id="loaiDT" onchange="getListLoai()">
           <option>Chọn loại điện thoại</option>
           <option>IPHONE</option>
           <option>SAMSUNG</option>
@@ -57,28 +56,48 @@
     </div>
   </section>
 
-
-    <div class="modal fade" id="myModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Giỏ hàng</h4>
-            <button type="button" class="close" data-dismiss="modal">
-              &times;
-            </button>
+    <!-- Cart -->
+    
+  <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-header border-bottom-0">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                      Your Cart
+                  </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <table class="table table-image">
+                      <thead>
+                          <tr>
+                              <th scope="col">ID</th>
+                              <th scope="col">Image</th>
+                              <th scope="col">Name</th>
+                              <th scope="col">Quanlity</th>
+                              <th scope="col">Price</th>
+                              <th scope="col">Actions</th>
+                          </tr>
+                      </thead>
+                      <tbody id="danhSachSP">
+                          <td><img src="" alt=""></td>
+                      </tbody>
+                  </table>
+                  <div class="d-flex justify-content-end">
+                      <h5>Total: <span class="price text-success"></span></h5>
+                  </div>
+              </div>
+              <div class="modal-footer border-top-0 d-flex justify-content-between">
+                  <button type="button" class="btn btn-primary" >Payment</button>
+                  <button type="button" class="btn btn-danger">Clear ALl <i class="fas fa-trash"></i></button>
+              </div>
           </div>
-          <!-- Modal body -->
-          <div class="modal-body" id="listProductCart">
-
-          </div>
-          <!-- Modal footer -->
-          <div class="modal-footer mx-0 my-5 row" id="footer">
-            
-          </div>
-        </div>
       </div>
-    </div>
+  </div>
+  <!-- Cart End -->
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -94,8 +113,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"
     integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="./../services/index.js"></script>
+  <script src="./../models/dssp.js"></script>
   <script src="./../models/products.js"></script>
+  <script src="./../services/index.js"></script>
   <script src="./../controller/main.js"></script>
 </body>
 

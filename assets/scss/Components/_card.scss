@@ -69,7 +69,7 @@
         
     }
 
-    .navbar__menu {
+    tbody {
         @include styleText($fs-9, $fw-3, $color-dark-2);
         text-align: center;
         align-items: center;
