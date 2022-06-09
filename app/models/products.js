@@ -1,7 +1,7 @@
 /**
  * Câu 2: Xây dựng lớp đối tượng Products
  */
-function Product(id, loai, hinhAnh, ten, gia, soLuong) {
+function Products(id, loai, hinhAnh, ten, gia, soLuong) {
     this.id = id;
     this.loai = loai;
     this.hinhAnh = hinhAnh;

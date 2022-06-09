@@ -1,7 +1,7 @@
-.btnCart {
+#gioHang {
     border: none;
     background-color: transparent;
-    font-size: 30px;
+    font-size: 50px;
     color: white;
     transition: all 0.5s;
     padding: 30px;
@@ -41,5 +41,14 @@
         background-color: $color-white-1;
         border: 1px solid  $color-white-1; 
     }
+}
+#soItem {
+    position: absolute;
+    right: 233px;
+    top: 28px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #00cff8;
+
 }
 

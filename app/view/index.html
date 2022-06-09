@@ -38,6 +38,7 @@
         data-toggle="modal" data-target="#cartModal">
         <i class="fas fa-shopping-cart"></i>
       </button>
+      
     </nav>
   </header>
 
@@ -45,6 +46,7 @@
     <div class="products__list container">
       <div class="loader" id="loader" style="display: none"></div>
       <div class="form-group">
+        <p id="soItem"></p>
         <label style="color: white">Tìm kiếm: </label>
         <select class="form-control " style="width: 30%" id="loaiDT" onchange="getListLoai()">
           <option>Chọn loại điện thoại</option>
@@ -74,7 +76,6 @@
                   <table class="table table-image">
                       <thead>
                           <tr>
-                              <th scope="col">ID</th>
                               <th scope="col">Image</th>
                               <th scope="col">Name</th>
                               <th scope="col">Quanlity</th>
@@ -87,12 +88,12 @@
                       </tbody>
                   </table>
                   <div class="d-flex justify-content-end">
-                      <h5>Total: <span class="price text-success"></span></h5>
+                      <h5>Total: <span id="total" class="price text-success"></span></h5>
                   </div>
               </div>
               <div class="modal-footer border-top-0 d-flex justify-content-between">
-                  <button type="button" class="btn btn-primary" >Payment</button>
-                  <button type="button" class="btn btn-danger">Clear ALl <i class="fas fa-trash"></i></button>
+                  <button type="button" id="payment" class="btn btn-primary" >Payment</button>
+                  <button type="button" id="clear" class="btn btn-danger">Clear ALl <i class="fas fa-trash"></i></button>
               </div>
           </div>
       </div>

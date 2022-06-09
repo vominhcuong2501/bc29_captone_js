@@ -27,17 +27,17 @@ html, body {
   letter-spacing: 0.015rem;
 }
 
-.btnCart {
+#gioHang {
   border: none;
   background-color: transparent;
-  font-size: 30px;
+  font-size: 50px;
   color: white;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
   padding: 30px;
 }
 
-.btnCart:hover {
+#gioHang:hover {
   color: #a7a7a7;
 }
 
@@ -81,6 +81,15 @@ html, body {
 #giam:hover, #tang:hover {
   background-color: #f5f9fe;
   border: 1px solid #f5f9fe;
+}
+
+#soItem {
+  position: absolute;
+  right: 233px;
+  top: 28px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #00cff8;
 }
 
 .product__item {
@@ -137,8 +146,8 @@ html, body {
 
 .product__item:hover .product__detail {
   opacity: 1;
-  -webkit-transform: translateY(-20px);
-          transform: translateY(-20px);
+  -webkit-transform: translateY(-50px);
+          transform: translateY(-50px);
 }
 
 .product__item .product__detail {
@@ -192,7 +201,7 @@ html, body {
   color: yellow;
 }
 
-.navbar__menu {
+tbody {
   font-size: 24px;
   font-weight: 700;
   color: #121212;
@@ -204,7 +213,7 @@ html, body {
   margin-top: 20px;
 }
 
-.navbar__menu #giam, .navbar__menu #tang {
+tbody #giam, tbody #tang {
   height: 30px;
   width: 30px;
   line-height: 30px;
@@ -215,37 +224,37 @@ html, body {
   transition: all 0.5s;
 }
 
-.navbar__menu #giam:hover, .navbar__menu #tang:hover {
+tbody #giam:hover, tbody #tang:hover {
   background-color: #a7a7a7;
   border: 1px solid #121212;
 }
 
-.navbar__menu p {
+tbody p {
   margin: 0;
 }
 
-.navbar__menu p input {
+tbody p input {
   border: none;
   text-align: center;
   background-color: transparent;
 }
 
-.navbar__menu p input::-webkit-input-placeholder {
+tbody p input::-webkit-input-placeholder {
   color: #121212;
   opacity: 1;
 }
 
-.navbar__menu p input:-ms-input-placeholder {
+tbody p input:-ms-input-placeholder {
   color: #121212;
   opacity: 1;
 }
 
-.navbar__menu p input::-ms-input-placeholder {
+tbody p input::-ms-input-placeholder {
   color: #121212;
   opacity: 1;
 }
 
-.navbar__menu p input::placeholder {
+tbody p input::placeholder {
   color: #121212;
   opacity: 1;
 }
