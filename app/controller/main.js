@@ -99,12 +99,15 @@ tượng mới có định dạng sau rồi push vào mảng cart
  */
 // Cách 1 dùng mảng
 function addCart(productId) {
-  // for( var i = 0; i < cart.length; i++) {
-  //   if(productId === +cart[i].id) {
-  //     cart[i].soLuong++;
-  //     break;
-  //   }
-  // }
+  for( var i = 0; i < cart.length; i++) {
+    if(productId === +cart[i].id) {
+      cart[i].soLuong++;
+      renderCart(cart);
+      tongTien();
+      tongItem()
+      return;
+    }
+  }
     var id = arrProduct[productId - 1 ].id ; 
     var loai = arrProduct[productId - 1].loai; 
     var hinhAnh = arrProduct[productId - 1].hinhAnh; 
@@ -188,7 +191,7 @@ function renderCart(data) { // cách 2: đổi mảng sang data
  */
 function giamSL(productId) {
   for( var i = 0; i < cart.length; i++) {
-    if(productId === +cart[i].id) {
+    if(productId === +cart[i].id && cart[i].soLuong > 0) {
       cart[i].soLuong--;
     }
   }
