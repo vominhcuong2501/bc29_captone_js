@@ -75,7 +75,7 @@ function renderListProduct(data) {
  * Câu 4: Tạo một ô select cho phép người dùng filter theo loại sản phẩm, ô select có 2 option là samsung và iphone, viết hàm gắn vào sự kiện onChange của select
  */
 
-function getListLoai()  {
+getEle("loaiDT").onchange = function() {
   var loaiSelect = getEle("loaiDT").value;
   var fillerProduct= arrProduct.filter(function(product) {
       if (product.loai !== loaiSelect) {
@@ -122,32 +122,6 @@ function addCart(productId) {
     general();
 }
 
-/**
- * Câu 8: . In giỏ hàng ra màn hình, viết hàm renderCart và duyệt mảng giỏ hàng, có bao nhiêu sản phẩm thì tạo ra bấy nhiêu <tr> tương ứng. 
- */
-function renderCart(data) { // cách 2: đổi mảng sang data
-  var contentHTML = "";
-  data.forEach(function(product) {
-    contentHTML += `
-    <tr>
-      <td style = "width: 35%">
-          <img class="image" src="./../../assets/images/${product.hinhAnh}" style= "width: 50%; margin-bottom: 10px" />
-      </td>
-      <td>${product.ten}</td>
-      <td>
-          <button id="giam" onclick = "giamSL(${product.id})"><i class="fas fa-angle-left"></i></button>
-          <input id="soLuong" style="width:30px; border: none" value= "${product.soLuong}">
-          <button id="tang" onclick = "tangSL(${product.id})"><i class="fas fa-angle-right"></i></button>
-      </td>
-      <td >$${product.gia}</td>
-      <td >
-          <button class = "btn" onclick = "deleteSP(${product.id})"><i class="fas fa-trash"></i></button>
-      </td>
-    </tr>`;
-  });
-  getEle("danhSachSP").innerHTML = contentHTML;
-}
-
 // Cách 2 api
 // function addCart(id) {
 //   getEle("btnAdd").style.display = "none";
@@ -184,6 +158,32 @@ function renderCart(data) { // cách 2: đổi mảng sang data
 //     });
     
 // }
+
+/**
+ * Câu 8: . In giỏ hàng ra màn hình, viết hàm renderCart và duyệt mảng giỏ hàng, có bao nhiêu sản phẩm thì tạo ra bấy nhiêu <tr> tương ứng. 
+ */
+function renderCart(data) { 
+  var contentHTML = "";
+  data.forEach(function(product) {
+    contentHTML += `
+    <tr>
+      <td style = "width: 35%">
+          <img class="image" src="./../../assets/images/${product.hinhAnh}" style= "width: 50%; margin-bottom: 10px" />
+      </td>
+      <td>${product.ten}</td>
+      <td>
+          <button id="giam" onclick = "giamSL(${product.id})"><i class="fas fa-angle-left"></i></button>
+          <input id="soLuong" style="width:30px; border: none" value= "${product.soLuong}">
+          <button id="tang" onclick = "tangSL(${product.id})"><i class="fas fa-angle-right"></i></button>
+      </td>
+      <td >$${product.gia}</td>
+      <td >
+          <button class = "btn" onclick = "deleteSP(${product.id})"><i class="fas fa-trash"></i></button>
+      </td>
+    </tr>`;
+  });
+  getEle("danhSachSP").innerHTML = contentHTML;
+}
 
 /**
  * Câu 9: Trong giao diện giỏ hàng, cho phép người dùng chỉnh sửa số lượng (gợi ý: cho 2 nút tăng giảm), viết hàm gắn vào 2 nút đó, khi nhấn vào thì truyền vào id, tìm trong mảng giỏ hàng xem sản phẩm
@@ -269,14 +269,7 @@ getEle("clear").onclick = function() {
  function deleteSP(productId) {
   for( var i = 0; i < cart.length; i++) {
     if(productId === +cart[i].id) {
-      var id = arrProduct[productId - 1 ].id ; 
-      var loai = arrProduct[productId - 1].loai; 
-      var hinhAnh = arrProduct[productId - 1].hinhAnh; 
-      var ten = arrProduct[productId - 1].ten; 
-      var gia = arrProduct[productId - 1].gia; 
-      var soLuong = Number(arrProduct[productId - 1].soLuong); 
-      var cartItem = new Products(id, loai, hinhAnh, ten, gia, soLuong);
-      cart.splice(cartItem,1);
+      cart.splice(i,1);
     }
   }
     renderCart(cart);
@@ -284,7 +277,7 @@ getEle("clear").onclick = function() {
 }
 
 
-// hàm chung
+// hàm tính tiền + đếm số item + setlocal
 function general() {
   tongTien();
   tongItem()

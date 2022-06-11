@@ -4,4 +4,5 @@ function ProductList() {
     this.addProduct = function(product) {
         this.arrList.push(product);
     }
+
 }
