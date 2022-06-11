@@ -90,6 +90,9 @@ function getListLoai()  {
   }
 }
 
+
+
+
 /**
  * Câu 5: Cho phép người dùng chọn sản phẩm bỏ vào giỏ hàng
 Gợi ý: - tạo một mảng giỏ hàng - cart (biến global), mảng cart sẽ chứa các đối tượng cartItem
@@ -103,8 +106,7 @@ function addCart(productId) {
     if(productId === +cart[i].id) {
       cart[i].soLuong++;
       renderCart(cart);
-      tongTien();
-      tongItem()
+      general();
       return;
     }
   }
@@ -117,9 +119,7 @@ function addCart(productId) {
     var cartItem = new Products(id, loai, hinhAnh, ten, gia, soLuong);
     cart.push(cartItem);
     renderCart(cart);
-    tongTien();
-    tongItem()
-    setLocalStorage();
+    general();
 }
 
 /**
@@ -196,9 +196,7 @@ function giamSL(productId) {
     }
   }
     renderCart(cart);
-    tongTien();
-    tongItem()
-    setLocalStorage();
+    general();
 }
 function tangSL(productId) {
   for( var i = 0; i < cart.length; i++) {
@@ -207,9 +205,7 @@ function tangSL(productId) {
     }
   }
     renderCart(cart);
-    tongTien();
-    tongItem()
-    setLocalStorage();
+    general();
 }
 
 /**
@@ -240,16 +236,13 @@ function tongItem() {
  * Câu 11: Lưu giỏ hàng vào localstorage , lần sau khi vào trang sẽ load lên lại.
  */
  function setLocalStorage() {
-  // convert from JSON to String (chuyển công thức sang chuỗi)
   var string = JSON.stringify(cart);
-  // lưu xuống localstorage
   localStorage.setItem("cart", string);
 }
 
 function getLocalStorage() {
   if(localStorage.getItem("cart")) {
       var dataString = localStorage.getItem("cart");
-      // convert from string to JSON (chuyển chuỗi sang công thức)
       var dataJSON = JSON.parse(dataString);
       cart = dataJSON;
       renderCart(cart);
@@ -262,16 +255,12 @@ function getLocalStorage() {
 getEle("payment").onclick = function() {
   cart = [];
   renderCart(cart)
-  tongTien();
-  tongItem()
-    setLocalStorage();
+  general();
 }
 getEle("clear").onclick = function() {
   cart = [];
-  tongTien();
   renderCart(cart)
-    setLocalStorage();
-    tongItem()
+  general();
 }
 
 /**
@@ -291,9 +280,13 @@ getEle("clear").onclick = function() {
     }
   }
     renderCart(cart);
-    tongTien();
-    tongItem()
-    setLocalStorage();
+    general();
 }
 
 
+// hàm chung
+function general() {
+  tongTien();
+  tongItem()
+  setLocalStorage();
+}
