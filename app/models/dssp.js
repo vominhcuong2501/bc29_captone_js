@@ -1,8 +1,11 @@
-function ProductList() {
-    this.arrList = [];
+export class ProductList {
+    arrList = [];
 
-    this.addProduct = function(product) {
+    addProduct = (product) => {
         this.arrList.push(product);
     }
-
 }
+
+
+
+
