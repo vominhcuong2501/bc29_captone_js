@@ -29,7 +29,7 @@ const getEle = (id) => {
           <input id="soLuong" style="width:30px; border: none" value= "${product.soLuong}">
           <button id="tang" onclick = "tangSL(${product.id})"><i class="fas fa-angle-right"></i></button>
       </td>
-      <td >$${product.gia}</td>
+      <td >$${product.gia}*${product.soLuong}</td>
       <td >
           <button class = "btn" onclick = "deleteSP(${product.id})"><i class="fas fa-trash"></i></button>
       </td>
