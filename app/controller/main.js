@@ -1,3 +1,8 @@
+/**
+ * Phần 2: Link github trang Admin https://github.com/vominhcuong2501/bc29_captone_p2 
+ */
+
+
 import {ProductList} from '../models/dssp.js';
 import {Products} from '../models/products.js';
 import {Services} from '../services/index.js';
@@ -18,6 +23,7 @@ const getEle = (id) => {
  const renderCart = (data) => { 
   let contentHTML = "";
   data.forEach(function(product) {
+    const pricesum = product.gia*product.soLuong;
     contentHTML += `
     <tr>
       <td style = "width: 35%">
@@ -29,7 +35,7 @@ const getEle = (id) => {
           <input id="soLuong" style="width:30px; border: none" value= "${product.soLuong}">
           <button id="tang" onclick = "tangSL(${product.id})"><i class="fas fa-angle-right"></i></button>
       </td>
-      <td >$${product.gia}*${product.soLuong}</td>
+      <td >$${pricesum}</td>
       <td >
           <button class = "btn" onclick = "deleteSP(${product.id})"><i class="fas fa-trash"></i></button>
       </td>
